@@ -1,13 +1,17 @@
 import pygame
 import random
+import waz
 
 def main():
     pygame.init()
     OknoGry=pygame.display.set_mode((440,440),0,32)
     pygame.display.set_caption("3tieg")
     run=True
-    zmienna=100
-    zmienna2=100
+
+#wywołanie klasy waz
+    obiektWaz=waz.Waz()
+    zmienna=obiektWaz.__pozycja[1]
+    zmienna2=obiektWaz.__pozycja[0]
 
     #losowanie pozycji jablka
     appleX=random.randint(0,21)*20+10
@@ -17,7 +21,7 @@ def main():
     punkty=0
 
     #pozycja weza
-    pozycja=[(zmienna2,zmienna)]
+    #pozycja=[(zmienna2,zmienna)]
 
     #pozycja.append((120,100))
     dlugoscWeza=1
@@ -37,24 +41,29 @@ def main():
                     zmienna=zmienna-20
                 elif zdarzenie.key==pygame.K_DOWN:
                     zmienna=zmienna+20
+                obiektWaz.ruch(zmienna2,zmienna)
+
                 #sprawdzenie czy waz nie zjada siebie
-                for location in pozycja[::]:
-                    if zmienna==location[1] and zmienna2==location[0]:
-                        pozycja=[(zmienna2,zmienna)]
-                        dlugoscWeza=1
-                        punkty=0
+                #for location in pozycja[::]:
+                    #if zmienna==location[1] and zmienna2==location[0]:
+                        #pozycja=[(zmienna2,zmienna)]
+                        #dlugoscWeza=1
+                        #punkty=0
+
                 #dodanie nowej pozycji weza
-                pozycja.append((zmienna2,zmienna))
+                #pozycja.append((zmienna2,zmienna))
                 #usuniecie poprzedniej pozycji weza
 
                 #nie usuwamy pozycji gdy waz zjadl jablko
 
-                if len(pozycja)>dlugoscWeza:
-                    del pozycja[0]
+                #if len(pozycja)>dlugoscWeza:
+                    #del pozycja[0]
+
+        obiektWaz.rysowanie(OknoGry)
 
         #tworzenie kwadratu jako weza
-        r=pygame.Rect((zmienna2,zmienna),(20,20))
-        pygame.draw.rect(OknoGry,(0,255,0),r)
+        #r=pygame.Rect((zmienna2,zmienna),(20,20))
+        #pygame.draw.rect(OknoGry,(0,255,0),r)
 
         #rysowanie weza z pozycji
         for poz in pozycja[::-1]:
