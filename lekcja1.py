@@ -1,7 +1,7 @@
 import pygame
 import random
 import waz
-
+    
 def main():
     pygame.init()
     OknoGry=pygame.display.set_mode((440,440),0,32)
@@ -10,8 +10,9 @@ def main():
 
 #wywołanie klasy waz
     obiektWaz=waz.Waz()
-    zmienna=obiektWaz.__pozycja[1]
-    zmienna2=obiektWaz.__pozycja[0]
+    poz=obiektWaz.getPosition()
+    zmienna=poz[1]
+    zmienna2=poz[0]
 
     #losowanie pozycji jablka
     appleX=random.randint(0,21)*20+10
@@ -66,9 +67,9 @@ def main():
         #pygame.draw.rect(OknoGry,(0,255,0),r)
 
         #rysowanie weza z pozycji
-        for poz in pozycja[::-1]:
-            r=pygame.Rect((poz[0],poz[1]),(20,20))
-            pygame.draw.rect(OknoGry,(0,255,0),r)
+        #for poz in pozycja[::-1]:
+           # r=pygame.Rect((poz[0],poz[1]),(20,20))
+           # pygame.draw.rect(OknoGry,(0,255,0),r)
 
         #tworzenie jablka za pomoca kola
         pygame.draw.circle(OknoGry,(128,0,0),(appleX,appleY),10)
@@ -82,8 +83,13 @@ def main():
 
         #wypisywanie punktow na ekran
         czcionka=pygame.font.SysFont("comicsans",30)
-        tekst=czcionka.render("Zdobyłeś punkty: {0}".format(punkty),1,(0,255,0))
+        tekst=czcionka.render("Zdobyłeś punkty: {0}".format(obiektWaz.punkty),1,(0,255,0))
         OknoGry.blit(tekst, (10,10))
+
+        #pobieranie pozycji glowy
+        glowa=obiektWaz.getPosition()
+        if glowa[0]>420:
+            obiektWaz.setPosition(0,glowa[1])
 
         if((zmienna+10==appleY) and (zmienna2+10==appleX)):
             pygame.draw.circle(OknoGry,(128,128,128),(appleX,appleY),10)

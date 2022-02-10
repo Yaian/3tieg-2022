@@ -7,8 +7,18 @@ class Waz():
         self.__pozycja=[(100,100)]
         self.dlugoscWeza=1
         self.punkty=0
- 
+        self.kierunek=[1,0]
+    def getPosition(self):
+        return self.__pozycja[0]
+    def setPosition(self,x,y):
+        self.__pozycja[-1]=(x,y)
     def ruch(self,x,y):
+
+        #obliczanie nowej pozycji
+        ostatniaPozycja=self.__pozycja[-1]
+        x=ostatniaPozycja[0]+20*self.kierunek[0]
+        y=ostatniaPozycja[1]+20*self.kierunek[1]
+        
          #sprawdzenie czy waz nie zjada siebie
         for location in self.__pozycja[::]:
             if x==location[0] and y==location[1]:
@@ -17,7 +27,18 @@ class Waz():
                     self.punkty=0
         #dodanie nowej pozycji weza
         self.__pozycja.append((x,y))
-    #funkcja rysująca węża
+
+        #nie usuwamy pozycji gdy waz zjadl jablko
+        if len(self.__pozycja)>self.dlugoscWeza:
+            del self.__pozycja[0]
+
+        #funkcja zjadania jablka
+        def zjadanie(self):
+            
+        #self.dlugoscWeza=self.dlugoscWeza+1
+            self.dlugoscWeza+=1
+            self.punkty=+1
+
     #jako parametry wywołania używa self - samej siebie oraz OknoGry- tam gdzie będziemy rysować węża
     def rysowanie(self, OknoGry):
         #rysowanie węża z pozycji
